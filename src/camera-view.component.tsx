@@ -1,5 +1,5 @@
-import { Camera, Composite, Properties, CameraView, Button, Popover } from "tabris";
-import { component, inject, property } from "tabris-decorators";
+import { Camera, Composite, Properties, CameraView, Button, Popover, ChangeListeners } from "tabris";
+import { component, event, inject, property } from "tabris-decorators";
 
 import { CameraService } from "./camera.service";
 
@@ -7,9 +7,9 @@ import { CameraService } from "./camera.service";
 export class CameraViewComponent extends Composite {
 
     @property public camera: Camera;
+    @property public dismissed: boolean;
 
-    private popover = new Popover();
-
+    @event public onDismissedChanged: ChangeListeners<CameraViewComponent, 'dismissed'>;
 
     constructor(
         properties: Properties<CameraViewComponent>,
@@ -24,16 +24,14 @@ export class CameraViewComponent extends Composite {
     private initView(): void {
         this.startCamera();
 
-        this.popover.contentView.append(
+        this.append(
             <$>
-                <CameraView stretch camera={this.camera}></CameraView>
+                <CameraView stretch bind-camera='camera'></CameraView>
                 <Button centerX bottom={35} height={50} width={150} cornerRadius={15} style='elevate' onSelect={() => this.captureImage()}>Take A Picture</Button>
                 <Button left={5} height={50} cornerRadius={15} style='text' onSelect={() => this.changeCamera()}>Switch Camera</Button>
                 <Button right={5} height={50} cornerRadius={15} style='text' onSelect={() => this.closeView()}>Cancel</Button>
             </$>
         );
-
-        this.popover.open();
     }
 
     private startCamera(): void {
@@ -44,11 +42,7 @@ export class CameraViewComponent extends Composite {
 
     private changeCamera(): void {
         this.cameraService.switchCamera()
-            .then(camera => { 
-                this.camera = camera;
-
-                this.popover.contentView.find(CameraView).only().camera = this.camera;
-            });
+            .then(camera => this.camera = camera);
     }
 
     private captureImage(): void {
@@ -58,7 +52,7 @@ export class CameraViewComponent extends Composite {
     }
 
     private closeView(): void {
-        this.popover.close();
+        this.dismissed = true;
 
         this.cameraService.deactiveCamera();
 

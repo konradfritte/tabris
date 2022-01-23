@@ -1,4 +1,4 @@
-import { Composite, ImageValue, ImageView, Properties, Button } from 'tabris';
+import { Composite, ImageValue, ImageView, Properties, Button, Popover } from 'tabris';
 import { component, property, ListView, Cell, inject } from 'tabris-decorators';
 
 import { CameraViewComponent } from './camera-view.component';
@@ -45,19 +45,19 @@ export class GalleryViewComponent extends Composite {
     }
 
     private toggleDetailView(image: ImageValue): void {
-        this.append(
-            <$>
-                <DetailViewComponent image={image}></DetailViewComponent>
-            </$>
+        const popover = Popover.open(
+            <Popover>
+                <DetailViewComponent stretch image={image} onDismissedChanged={() => popover.close()}></DetailViewComponent>
+            </Popover>
         );
     }
 
     private toggleCameraView(): void {
-        this.append(
-            <$>
-                <CameraViewComponent></CameraViewComponent>
-            </$>
-        );
+        const popover = Popover.open(
+            <Popover>
+                <CameraViewComponent stretch onDismissedChanged={() => popover.close()}></CameraViewComponent>
+            </Popover> 
+        )
     }
 
 }

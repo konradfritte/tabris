@@ -1,12 +1,13 @@
-import { Composite, Popover, Properties, ImageView, ImageValue } from "tabris";
-import { component, property } from "tabris-decorators";
+import { Composite, Popover, Properties, ImageView, ImageValue, ChangeListeners } from "tabris";
+import { component, event, property } from "tabris-decorators";
 
 @component
 export class DetailViewComponent extends Composite {
 
     @property public image: ImageValue;
+    @property public dismissed: boolean;
 
-    private popover = new Popover();
+    @event public onDismissedChanged: ChangeListeners<DetailViewComponent, 'dismissed'>;
 
     constructor(properties: Properties<DetailViewComponent>) {
         super();
@@ -16,7 +17,7 @@ export class DetailViewComponent extends Composite {
     }
 
     private initView(): void {
-        this.popover.contentView.append(
+        this.append(
             <$>
                 <ImageView
                     stretch
@@ -28,13 +29,11 @@ export class DetailViewComponent extends Composite {
                 ></ImageView>
             </$>
         );
-
-        this.popover.open();
     }
 
     private closeView(): void {
-        this.popover.close();
-        
+        this.dismissed = true;
+
         this.dispose();
     }
 }
