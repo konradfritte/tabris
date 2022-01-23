@@ -9,9 +9,7 @@ export class CameraService {
 
     constructor(
         @inject private imageService: ImageService
-    ) {
-
-    }
+    ) { }
 
     public getCamera(): Camera {
         return this.camera;
@@ -28,8 +26,8 @@ export class CameraService {
         this.camera.active = false;
     }
 
-    public async captureImage() {
-        const { image } = await this.camera.captureImage();
+    public async captureImage(activeFlash?: boolean) {
+        const { image } = await this.camera.captureImage({ flash: activeFlash ? 'on' : 'off' });
 
         this.imageService.addImage(image);
     }

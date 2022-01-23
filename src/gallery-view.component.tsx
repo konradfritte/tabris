@@ -57,7 +57,7 @@ export class GalleryViewComponent extends Composite {
             <Popover>
                 <CameraViewComponent stretch onDismissedChanged={() => popover.close()}></CameraViewComponent>
             </Popover> 
-        )
+        );
     }
 
 }
