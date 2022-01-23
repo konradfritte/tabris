@@ -3,7 +3,7 @@ import { component, property, ListView, Cell, inject } from 'tabris-decorators';
 
 import { DetailViewComponent } from './detail-view.component';
 
-import { ImageService } from './image.service';
+import { ImageService } from '../service/image.service';
 
 @component
 export class GalleryViewComponent extends Composite {

@@ -39,6 +39,5 @@ export class CameraService {
 
         return this.activateCamera()
             .then(() => this.camera);
-        ;
     }
 }

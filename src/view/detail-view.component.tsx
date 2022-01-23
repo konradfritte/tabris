@@ -1,4 +1,4 @@
-import { Composite, Popover, Properties, ImageView, ImageValue, ChangeListeners } from "tabris";
+import { Composite, Properties, ImageView, ImageValue, ChangeListeners } from "tabris";
 import { component, event, property } from "tabris-decorators";
 
 @component

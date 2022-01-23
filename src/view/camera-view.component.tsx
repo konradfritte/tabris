@@ -1,7 +1,7 @@
 import { Camera, Composite, Properties, CameraView, Button, ChangeListeners, TextView, Constraint, Switch } from "tabris";
 import { component, event, inject, property } from "tabris-decorators";
 
-import { CameraService } from "./camera.service";
+import { CameraService } from "../service/camera.service";
 
 @component
 export class CameraViewComponent extends Composite {

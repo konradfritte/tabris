@@ -1,7 +1,7 @@
 import { Constraint, contentView, TextView, Button, Popover } from 'tabris';
 
-import { GalleryViewComponent } from './gallery-view.component';
-import { CameraViewComponent } from './camera-view.component';
+import { GalleryViewComponent } from './view/gallery-view.component';
+import { CameraViewComponent } from './view/camera-view.component';
 
 export class App {
 
