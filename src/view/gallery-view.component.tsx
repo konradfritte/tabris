@@ -1,4 +1,4 @@
-import { Composite, ImageValue, ImageView, Properties, Popover } from 'tabris';
+import { Composite, ImageValue, ImageView, Properties, Popover, TextView } from 'tabris';
 import { component, property, ListView, Cell, inject } from 'tabris-decorators';
 
 import { DetailViewComponent } from './detail-view.component';
@@ -32,7 +32,14 @@ export class GalleryViewComponent extends Composite {
         this.images = images.length ? this.imageService.getImages() : GalleryViewComponent.placeholder;
     }
 
+    // Hier kann man nochmal ein bisschen mit dem view zeug rumprobieren, also Listview erstellen und erklären
     private initView(): void {
+
+        this.append(
+            <$>
+                <TextView>Here should be a List of your images</TextView>
+            </$>
+        )
         this.append(
             <$>
                 <ListView stretch bind-items='images' onSelect={({ item }: { item: string }) => this.toggleDetailView(item)}>

@@ -7,7 +7,7 @@ export class StorageService {
     private static directory = `${fs.cacheDir}/images`;
 
     constructor() { }
-
+    //kurz über Filesystem und localstorage quatschen, aber nicht too much, CLI Option erklären
     public storeImage(data: Blob): Promise<string> {
         const timeStamp = Date.now();
 

@@ -4,9 +4,9 @@ import { GalleryViewComponent } from './view/gallery-view.component';
 import { CameraViewComponent } from './view/camera-view.component';
 
 export class App {
-
+  //erstmal grundsätzlich was über das projekt erzählen und die struktur
   public start() {
-
+    //Hier vielleicht was machen? ToggleCameraView einfügen
     contentView.append(
       <$>
         <TextView padding={15} font='bold 24px monospace' centerX>My Photo Gallery</TextView>
