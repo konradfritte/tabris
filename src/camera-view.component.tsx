@@ -1,12 +1,13 @@
 import { Camera, Composite, Properties, CameraView, Button, Popover } from "tabris";
-import { component, inject } from "tabris-decorators";
+import { component, inject, property } from "tabris-decorators";
 
 import { CameraService } from "./camera.service";
 
 @component
 export class CameraViewComponent extends Composite {
 
-    private camera: Camera;
+    @property public camera: Camera;
+
     private popover = new Popover();
 
 
@@ -27,6 +28,7 @@ export class CameraViewComponent extends Composite {
             <$>
                 <CameraView stretch camera={this.camera}></CameraView>
                 <Button centerX bottom={35} height={50} width={150} cornerRadius={15} style='elevate' onSelect={() => this.captureImage()}>Take A Picture</Button>
+                <Button left={5} height={50} cornerRadius={15} style='text' onSelect={() => this.changeCamera()}>Switch Camera</Button>
                 <Button right={5} height={50} cornerRadius={15} style='text' onSelect={() => this.closeView()}>Cancel</Button>
             </$>
         );
@@ -40,6 +42,15 @@ export class CameraViewComponent extends Composite {
         this.camera = this.cameraService.getCamera();
     }
 
+    private changeCamera(): void {
+        this.cameraService.switchCamera()
+            .then(camera => { 
+                this.camera = camera;
+
+                this.popover.contentView.find(CameraView).only().camera = this.camera;
+            });
+    }
+
     private captureImage(): void {
         this.cameraService.captureImage();
 
@@ -50,7 +61,7 @@ export class CameraViewComponent extends Composite {
         this.popover.close();
 
         this.cameraService.deactiveCamera();
-        
+
         this.dispose();
     }
 

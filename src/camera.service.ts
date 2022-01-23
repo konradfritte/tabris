@@ -17,12 +17,11 @@ export class CameraService {
         return this.camera;
     }
 
-    public activateCamera(): void {
-
-        permission.requestAuthorization(
+    public activateCamera(): Promise<string | boolean> {
+        return permission.requestAuthorization(
             'camera'
         )
-            .then(_ => this.camera.active = true);
+            .then(() => this.camera.active = true);
     }
 
     public deactiveCamera(): void {
@@ -35,7 +34,13 @@ export class CameraService {
         this.imageService.addImage(image);
     }
 
-    public switchCamera(): void {
+    public switchCamera(): Promise<Camera> {
+        this.deactiveCamera();
+
         this.camera = this.camera === device.cameras[0] ? device.cameras[1] : device.cameras[0];
+
+        return this.activateCamera()
+            .then(() => this.camera);
+        ;
     }
 }
