@@ -11,7 +11,7 @@ export class GalleryViewComponent extends Composite {
     public static placeholder = ['https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'];
 
 
-    @property public stringList: ImageValue[];
+    @property public images: string[];
 
     constructor(
         properties: Properties<GalleryViewComponent>,
@@ -27,15 +27,15 @@ export class GalleryViewComponent extends Composite {
     }
 
     private initImages(): void {
-        const newImages = this.imageService.getImages();
+        const images = this.imageService.getImages();
 
-        this.stringList = newImages.length ? this.imageService.getImages() : GalleryViewComponent.placeholder;
+        this.images = images.length ? this.imageService.getImages() : GalleryViewComponent.placeholder;
     }
 
     private initView(): void {
         this.append(
             <$>
-                <ListView stretch bind-items='stringList' onSelect={({ item }: { item: ImageValue }) => this.toggleDetailView(item)}>
+                <ListView stretch bind-items='images' onSelect={({ item }: { item: string }) => this.toggleDetailView(item)}>
                     <Cell padding={15} selectable={true}>
                         <ImageView centerX height={250} width={250} cornerRadius={25} scaleMode='fill' bind-image='item'></ImageView>
                     </Cell>
