@@ -8,7 +8,10 @@ import { ImageService } from '../service/image.service';
 @component
 export class GalleryViewComponent extends Composite {
 
-    @property public stringList: ImageValue[] = ['https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'];
+    public static placeholder = ['https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'];
+
+
+    @property public stringList: ImageValue[];
 
     constructor(
         properties: Properties<GalleryViewComponent>,
@@ -17,9 +20,16 @@ export class GalleryViewComponent extends Composite {
         super();
         this.set(properties);
 
-        this.listenToImageChanges();
-
+        this.initImages();
         this.initView();
+
+        this.listenToImageChanges();
+    }
+
+    private initImages(): void {
+        const newImages = this.imageService.getImages();
+
+        this.stringList = newImages.length ? this.imageService.getImages() : GalleryViewComponent.placeholder;
     }
 
     private initView(): void {
@@ -36,7 +46,7 @@ export class GalleryViewComponent extends Composite {
 
     private listenToImageChanges(): void {
         this.imageService.onImagesChanged(() => {
-            this.stringList = this.imageService.images;
+            this.initImages();
         });
     }
 
