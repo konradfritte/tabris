@@ -1,18 +1,16 @@
-import {Button, TextView, contentView, Constraint} from 'tabris';
+import { Constraint, contentView, TextView } from 'tabris';
+import { GalleryViewComponent } from './gallery-view.component';
 
 export class App {
 
   public start() {
+
     contentView.append(
       <$>
-        <Button center onSelect={this.showText}>Tap here</Button>
-        <TextView centerX bottom={[Constraint.prev, 20]} font={{size: 24}}/>
+        <TextView padding={15} font='bold 24px monospace' centerX>My Photo Gallery</TextView>
+        <GalleryViewComponent top={Constraint.prev} stretch />
       </$>
     );
   }
-
-  private showText = () => {
-    $(TextView).only().text = 'Tabris.js rocks!';
-  };
-
 }
+
