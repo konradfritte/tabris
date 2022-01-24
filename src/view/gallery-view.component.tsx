@@ -42,9 +42,6 @@ export class GalleryViewComponent extends Composite {
     }
 
     private listenToImageChanges(): void {
-        this.imageService.onImagesChanged(() => {
-            this.initImages();
-        });
     }
 
     private toggleDetailView(image: ImageValue): void {

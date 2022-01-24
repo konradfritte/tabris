@@ -6,7 +6,7 @@ import { StorageService } from "./storage.service";
 export class ImageService {
 
     @property public images: string[];
-    //hier nochmal events erklären und dann den Listener in GalleryView einbauen
+    
     @event public onImagesChanged: ChangeListeners<ImageService, 'images'>;
 
     constructor(
