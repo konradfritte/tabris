@@ -6,10 +6,8 @@ import { ImageService } from "./image.service";
 export class CameraService {
 
     private camera = device.cameras[0];
-    //image service rausnehmen und neu injecten, dabei DI erklären
-    constructor(
-        @inject private imageService: ImageService
-    ) { }
+
+    constructor() { }
 
     public getCamera(): Camera {
         return this.camera;
@@ -28,8 +26,6 @@ export class CameraService {
 
     public async captureImage(activeFlash?: boolean) {
         const { image } = await this.camera.captureImage({ flash: activeFlash ? 'on' : 'off' });
-        //Hier kann man den capture image ganz gut aufhalten, einfach auskommentieren oder rausnehmen
-        this.imageService.addImage(image);
     }
 
     public switchCamera(): Promise<Camera> {
