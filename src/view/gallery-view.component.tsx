@@ -32,21 +32,11 @@ export class GalleryViewComponent extends Composite {
         this.images = images.length ? this.imageService.getImages() : GalleryViewComponent.placeholder;
     }
 
-    // Hier kann man nochmal ein bisschen mit dem view zeug rumprobieren, also Listview erstellen und erklären
     private initView(): void {
 
         this.append(
             <$>
-                <TextView>Here should be a List of your images</TextView>
-            </$>
-        )
-        this.append(
-            <$>
-                <ListView stretch bind-items='images' onSelect={({ item }: { item: string }) => this.toggleDetailView(item)}>
-                    <Cell padding={15} selectable={true}>
-                        <ImageView centerX height={250} width={250} cornerRadius={25} scaleMode='fill' bind-image='item'></ImageView>
-                    </Cell>
-                </ListView>
+                <TextView center >Here should be a List of your images</TextView>
             </$>
         );
     }
